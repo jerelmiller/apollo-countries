@@ -35,18 +35,14 @@ type Action<TData = any> =
   | { type: ActionType.Complete; payload: TData };
 
 type State<TData = any> =
-  | {
-      status: Status.LOADING;
-      data: TData | undefined;
-      error: undefined;
-    }
+  | { status: Status.LOADING; data: undefined; error: undefined }
   | { status: Status.COMPLETE; data: TData; error: undefined }
   | { status: Status.ERROR; data: undefined; error: ErrorType };
 
 const reducer = <TData = any>(state: State<TData>, action: Action<TData>) => {
   switch (action.type) {
     case ActionType.Fetch:
-      return { ...state, status: Status.LOADING };
+      return { ...state, data: undefined, status: Status.LOADING };
     case ActionType.Complete:
       return {
         status: Status.COMPLETE,
