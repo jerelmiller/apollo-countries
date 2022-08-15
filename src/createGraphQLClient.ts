@@ -1,27 +1,14 @@
 import { QueryError } from './errors';
 import normalizeHeaders from './utils/normalizeHeaders';
 import type { GraphQLError } from './errors';
+import type { GraphQLClient, QueryOptions } from './types';
 
 interface GraphQLResponse<TData> {
   data?: TData | null;
   errors?: GraphQLError[] | null;
 }
 
-interface QueryOptions<TVariables extends Record<string, any>> {
-  query: string;
-  variables: TVariables;
-}
-
-export interface GraphQLClient {
-  query: <
-    TData = any,
-    TVariables extends Record<string, any> = Record<string, any>
-  >(
-    options: QueryOptions<TVariables>
-  ) => Promise<TData>;
-}
-
-interface ClientOptions {
+interface Options {
   url: string;
   method?: 'GET' | 'POST';
   headers?: Record<string, string>;
@@ -37,7 +24,7 @@ const createGraphQLClient = ({
   method,
   headers,
   requestOptions,
-}: ClientOptions): GraphQLClient => {
+}: Options): GraphQLClient => {
   return {
     query: async <TData = any, TVariables = Record<string, any>>({
       query,
