@@ -1,4 +1,5 @@
 import Error from './Error';
+import PageSpinner from './PageSpinner';
 import useQuery from '../hooks/useQuery';
 import graphql from '../graphql';
 import './Countries.scss';
@@ -9,7 +10,7 @@ interface CountriesQuery {
 
 const QUERY = graphql`
   query CountriesQuery {
-    countrie {
+    countries {
       name
       code
     }
@@ -20,7 +21,7 @@ const Countries = () => {
   const { data, error, status } = useQuery<CountriesQuery>(QUERY);
 
   if (status === useQuery.STATUS.LOADING) {
-    return <div>Loading</div>;
+    return <PageSpinner />;
   }
 
   if (status === useQuery.STATUS.ERROR) {
