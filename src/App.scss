@@ -1,0 +1,20 @@
+.App {
+  --logo-width: 140px;
+
+  &-header {
+    display: grid;
+    // Ensure the heading is centered on the page, not just the right-most space
+    grid-template-columns: var(--logo-width) 1fr var(--logo-width);
+    align-items: center;
+
+    h1 {
+      flex: 1;
+      margin: 0;
+      text-align: center;
+    }
+  }
+
+  &-logo {
+    width: var(--logo-width);
+  }
+}
