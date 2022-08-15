@@ -11,7 +11,7 @@ interface Options<
 
 type ErrorType = Error | QueryError;
 
-// I tend to think of network requests as state matchines that can only exist in
+// I tend to think of network requests as state machines that can only exist in
 // a single state at once. Rather than modeling our requests using boolean flags
 // (such as a `loading` flag), we use a status instead.
 //
