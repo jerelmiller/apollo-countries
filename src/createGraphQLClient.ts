@@ -9,7 +9,7 @@ interface GraphQLResponse<TData> {
 }
 
 interface Options {
-  url: string;
+  url: URL | string;
   method?: 'GET' | 'POST';
   headers?: Record<string, string>;
   requestOptions?: Omit<RequestInit, 'method' | 'headers' | 'body'>;

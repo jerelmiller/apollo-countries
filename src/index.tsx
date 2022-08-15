@@ -2,14 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
+import GraphQLClientProvider from './components/GraphQLClientProvider';
+import createGraphQLClient from './createGraphQLClient';
 import reportWebVitals from './reportWebVitals';
+
+const client = createGraphQLClient({
+  url: 'https://countries.trevorblades.com',
+});
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <GraphQLClientProvider client={client}>
+      <App />
+    </GraphQLClientProvider>
   </React.StrictMode>
 );
 
