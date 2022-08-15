@@ -15,7 +15,11 @@ export class QueryError extends Error {
   errors: GraphQLError[];
 
   constructor(errors: GraphQLError[]) {
-    super('');
+    super(
+      `Query returned with errors: \n${errors
+        .map((error) => error.message)
+        .join('\n')}`
+    );
     this.name = 'QueryError';
     this.errors = errors;
   }
