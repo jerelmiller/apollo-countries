@@ -22,8 +22,8 @@ const DEFAULT_HEADERS = {
 
 const createGraphQLClient = ({
   url,
-  method,
   headers,
+  method = 'POST',
   requestOptions,
 }: Options): GraphQLClient => {
   return {
