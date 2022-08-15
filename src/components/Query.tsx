@@ -15,4 +15,6 @@ const Query = ({ children, query, variables }: QueryProps) => {
   return children(result);
 };
 
+Query.STATUS = useQuery.STATUS;
+
 export default Query;
