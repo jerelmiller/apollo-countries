@@ -1,3 +1,4 @@
+import Error from './Error';
 import useQuery from '../hooks/useQuery';
 import graphql from '../graphql';
 import './Countries.scss';
@@ -8,7 +9,7 @@ interface CountriesQuery {
 
 const QUERY = graphql`
   query CountriesQuery {
-    countries {
+    countrie {
       name
       code
     }
@@ -23,7 +24,7 @@ const Countries = () => {
   }
 
   if (status === useQuery.STATUS.ERROR) {
-    return <div>{error.message}</div>;
+    return <Error title="Something went wrong" message={error.message} />;
   }
 
   return (

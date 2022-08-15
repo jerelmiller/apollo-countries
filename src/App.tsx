@@ -9,7 +9,7 @@ const App = () => {
         <Logo className="App-logo" />
         <h1>Jerel's GraphQL Countries</h1>
       </header>
-      <main>
+      <main className="App-main">
         <Countries />
       </main>
     </div>
