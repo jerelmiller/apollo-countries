@@ -9,5 +9,6 @@ export interface GraphQLClient {
 
 export interface QueryOptions<TVariables extends Record<string, any>> {
   query: string;
-  variables: TVariables;
+  variables?: TVariables;
+  signal?: AbortSignal;
 }
