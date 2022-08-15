@@ -9,6 +9,10 @@ interface QueryProps<
   variables?: TVariables;
 }
 
+// Creating a Query component allows us to cater to developers that may prefer
+// components over hooks. This can also enable developers that may need to work
+// around the limitations of hooks, for example, when conditionally rendering
+// something.
 const Query = ({ children, query, variables }: QueryProps) => {
   const result = useQuery(query, { variables });
 
