@@ -51,8 +51,16 @@ type Action<TData = any> =
   | { type: ActionType.Complete; payload: TData };
 
 type State<TData = any> =
+  // For the sake of this exercise, I kept the loading state simple by always
+  // reset `data` and `error`. In a real-app, you may be refetching data from the
+  // server (for example, when polling) and want to maintain the previously
+  // loaded data. This is not modeled in this application, though we should be
+  // able to extend this hook to allow such behavior.
   | { status: Status.LOADING; data: undefined; error: undefined }
   | { status: Status.COMPLETE; data: TData; error: undefined }
+  // While GraphQL does allow partial success that returns valid `data` along
+  // with an non-empty `errors` key, I am choosing to keep this simple and keep
+  // data as unset when in error status.
   | { status: Status.ERROR; data: undefined; error: ErrorType };
 
 // Using a reducer allows us to more effectively model what is happening during
