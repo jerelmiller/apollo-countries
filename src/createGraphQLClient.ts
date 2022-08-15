@@ -20,6 +20,16 @@ const DEFAULT_HEADERS = {
   'content-type': 'application/json',
 };
 
+// Separating out the creation of a GraphQL client from the rest of the
+// application allows us to decouple the GraphQL client from the rest of the app
+// implementation. While this application is built using React, this GraphQL
+// client is generic and can be used in any context. We can build React
+// interfaces around the client, to provide nice experiences in React (i.e. hooks),
+// but also allow the developer to use the client directly if they so-choose.
+//
+// Separating it out also allows the possibility of multiple clients to multiple
+// endpoints for complex applications.
+
 const createGraphQLClient = ({
   url,
   headers,
