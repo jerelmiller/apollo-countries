@@ -1,5 +1,6 @@
 import useQuery from '../hooks/useQuery';
 import graphql from '../graphql';
+import './Countries.scss';
 
 interface CountriesQuery {
   countries: { name: string; code: string }[];
@@ -26,9 +27,9 @@ const Countries = () => {
   }
 
   return (
-    <ul>
+    <ul className="Countries">
       {data.countries.map((country) => (
-        <li key={country.code}>
+        <li className="Countries-country" key={country.code}>
           {country.code} - {country.name}
         </li>
       ))}
