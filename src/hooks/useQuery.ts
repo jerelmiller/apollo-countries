@@ -78,7 +78,7 @@ const useQuery = <
     client
       .query<TData, TVariables>({ ...body, signal: controller.signal })
       .then((data) => dispatch({ type: ActionType.Complete, payload: data }))
-      .catch((error: Error | QueryError) => {
+      .catch((error: ErrorType) => {
         if (error.name === 'AbortError') {
           return;
         }
