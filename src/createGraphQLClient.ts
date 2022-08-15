@@ -1,5 +1,5 @@
 import { QueryError } from './errors';
-import normalizeHeaders from './utils/normalizeHeaders';
+import { mergeHeaders } from './utils/headers';
 import type { GraphQLError } from './errors';
 import type { GraphQLClient, QueryOptions } from './types';
 
@@ -35,7 +35,7 @@ const createGraphQLClient = ({
       const response = await window.fetch(url, {
         ...requestOptions,
         method,
-        headers: { ...DEFAULT_HEADERS, ...normalizeHeaders(headers) },
+        headers: mergeHeaders(DEFAULT_HEADERS, headers),
         body: JSON.stringify({ query, variables }),
         signal,
       });
