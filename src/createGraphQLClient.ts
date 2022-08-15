@@ -12,7 +12,8 @@ interface Options {
   url: URL | string;
   method?: 'GET' | 'POST';
   headers?: Record<string, string>;
-  requestOptions?: Omit<RequestInit, 'method' | 'headers' | 'body'>;
+  signal?: AbortSignal;
+  requestOptions?: Omit<RequestInit, 'method' | 'headers' | 'body' | 'signal'>;
 }
 
 const DEFAULT_HEADERS = {
@@ -29,12 +30,14 @@ const createGraphQLClient = ({
     query: async <TData = any, TVariables = Record<string, any>>({
       query,
       variables,
+      signal,
     }: QueryOptions<TVariables>) => {
       const response = await window.fetch(url, {
         ...requestOptions,
         method,
         headers: { ...DEFAULT_HEADERS, ...normalizeHeaders(headers) },
         body: JSON.stringify({ query, variables }),
+        signal,
       });
 
       if (!response.ok) {
