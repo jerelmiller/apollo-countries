@@ -50,7 +50,7 @@ const createGraphQLClient = ({
       }
 
       if (!data) {
-        return Promise.reject(new Error('Could not get data'));
+        return Promise.reject(new Error('Server responded with no data'));
       }
 
       return data;
