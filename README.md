@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# Apollo Countries
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+An app that can fetch some country data from a GraphQL server. This builds a
+GraphQL client from the ground-up with reuse and flexibility in mind.
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+After cloning the repo, install dependencies with `npm`:
 
-### `npm start`
+```sh
+npm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Start the app:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```
+npm start
+```
 
-### `npm test`
+## Browsing code
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Here are some areas of interest when browsing the code. Throughout the code
+you'll also find some code comments that help explain my thinking in how I
+designed the implementation of this task.
 
-### `npm run build`
+**`src/index.tsx`**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This root file is a great starting point when digging into the source code for
+this application. It is here I initialize the GraphQL client for the application
+and the main UI for the application.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**`src/App.tsx`**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This provides some high-level UI for the app, such as the header and main areas
+of the application. This component also renders the `Countries` component which
+fetches the countries data from the server and renders them in a list.
 
-### `npm run eject`
+**`src/components/Countries.tsx`**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This is the main area of interest for the task. This is where I execute the
+GraphQL query to get the countries data and display it in a list.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**`src/hooks/useQuery.ts`**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+This hooks provides the ability to execute a GraphQL query against the GraphQL
+server. It uses the GraphQL client initialized in `src/index.tsx` to fetch data.
+This hook is designed to be generic and used with any GraphQL query. It uses
+TypeScript generics to provide a nice developer experience to type the data
+returned from the query.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**`src/createGraphQLClient.ts`**
 
-## Learn More
+This creates a generic GraphQL client that can talk to any GraphQL server. While
+this task was designed to talk to a single server, I wanted something generic
+that is easy to configure, decoupled from React, and conformed to a specific
+interface.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+While not part of the task, this design allows you to more easily provide a mock
+implementation of a GraphQL client that could be used in tests.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Design
+
+The implementation is heavily inspired by Apollo client with a sprinkle from
+[React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/).
+I really liked the `status` returned in React Query as part of state when
+fetching data, so I opted for this approach over a `loading` flag.
+
+While I could have implemented this task inside the `useQuery` hook exclusively,
+I wanted to show how we could use composition and a decoupled approach to allow
+for maximum flexibility.
+
+- By separating out the creation of the client from React, we can
+  easily spin up multiple GraphQL clients that fetch against a different servers.
+- The `useGraphQLClient` hook provides an escape-hatch to developers that may
+  need to use the client directly, and bypass the `useQuery` hook.
+- The `useQuery` hook provides the convenience and lifecycle management for
+  executing a GraphQL query. Its expected this is used the most.
