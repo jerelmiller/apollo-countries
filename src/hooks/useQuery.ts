@@ -17,8 +17,8 @@ type ErrorType = Error | QueryError;
 //
 // This can have some advantages:
 //  * We can model our state type using a discriminated union to more
-//    effectively communicate each state property (for example, we can reliably
-//    reset the `error` when we are `loading`)
+//    effectively communicate each state property (for example, we know `error`
+//    is a non-nullable value when the `status` is `error`)
 //  * Developers that prefer `switch` statements can more easily use them as we
 //    don't need to analyze multiple pieces of data to determine what state we
 //    are in
