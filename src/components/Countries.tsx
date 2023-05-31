@@ -1,4 +1,3 @@
-import Error from './Error';
 import { gql, useSuspenseQuery } from '@apollo/client';
 import './Countries.scss';
 
@@ -16,11 +15,7 @@ const QUERY = gql`
 `;
 
 const Countries = () => {
-  const { data, error } = useSuspenseQuery<CountriesQuery>(QUERY);
-
-  if (error) {
-    return <Error title="Something went wrong" message={error.message} />;
-  }
+  const { data } = useSuspenseQuery<CountriesQuery>(QUERY);
 
   return (
     <ul className="Countries">
