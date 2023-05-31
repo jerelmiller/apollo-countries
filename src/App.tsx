@@ -1,6 +1,8 @@
 import './App.scss';
+import { Suspense } from 'react';
 import Countries from './components/Countries';
 import Logo from './components/Logo';
+import PageSpinner from './components/PageSpinner';
 
 const App = () => {
   return (
@@ -10,7 +12,9 @@ const App = () => {
         <h1>Jerel's GraphQL Countries</h1>
       </header>
       <main className="App-main">
-        <Countries />
+        <Suspense fallback={<PageSpinner />}>
+          <Countries />
+        </Suspense>
       </main>
     </div>
   );

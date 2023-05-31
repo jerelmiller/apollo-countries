@@ -1,14 +1,12 @@
 import Error from './Error';
-import PageSpinner from './PageSpinner';
-import useQuery from '../hooks/useQuery';
-import graphql from '../graphql';
+import { gql, useSuspenseQuery } from '@apollo/client';
 import './Countries.scss';
 
 interface CountriesQuery {
   countries: { name: string; code: string }[];
 }
 
-const QUERY = graphql`
+const QUERY = gql`
   query CountriesQuery {
     countries {
       name
@@ -18,13 +16,9 @@ const QUERY = graphql`
 `;
 
 const Countries = () => {
-  const { data, error, status } = useQuery<CountriesQuery>(QUERY);
+  const { data, error } = useSuspenseQuery<CountriesQuery>(QUERY);
 
-  if (status === useQuery.STATUS.LOADING) {
-    return <PageSpinner />;
-  }
-
-  if (status === useQuery.STATUS.ERROR) {
+  if (error) {
     return <Error title="Something went wrong" message={error.message} />;
   }
 
