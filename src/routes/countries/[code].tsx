@@ -1,22 +1,7 @@
 import { useSuspenseQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
+import { CountryQuery, CountryQueryVariables } from '../../gql/graphql';
 import query from './[code].query.graphql';
-
-interface CountryQuery {
-  country: {
-    code: string;
-    name: string;
-    capital: string;
-    continent: {
-      code: string;
-      name: string;
-    };
-  };
-}
-
-interface CountryQueryVariables {
-  code: string;
-}
 
 export const RouteComponent = () => {
   const { code } = useParams() as { code: string };
@@ -26,6 +11,10 @@ export const RouteComponent = () => {
   );
 
   const { country } = data;
+
+  if (!country) {
+    throw new Error('Could not find country');
+  }
 
   return (
     <>
