@@ -1,5 +1,5 @@
 import { gql, useSuspenseQuery } from '@apollo/client';
-import './Countries.scss';
+import './index.scss';
 
 interface CountriesQuery {
   countries: { name: string; code: string }[];
@@ -14,7 +14,7 @@ const QUERY = gql`
   }
 `;
 
-const Countries = () => {
+export const RouteComponent = () => {
   const { data } = useSuspenseQuery<CountriesQuery>(QUERY);
 
   return (
@@ -27,5 +27,3 @@ const Countries = () => {
     </ul>
   );
 };
-
-export default Countries;

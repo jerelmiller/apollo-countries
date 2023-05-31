@@ -1,12 +1,12 @@
-import './App.scss';
 import { Suspense } from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import Countries from './components/Countries';
-import Logo from './components/Logo';
-import PageSpinner from './components/PageSpinner';
-import Error from './components/Error';
+import { Outlet } from 'react-router-dom';
+import Error from '../components/Error';
+import Logo from '../components/Logo';
+import PageSpinner from '../components/PageSpinner';
+import './root.scss';
 
-const App = () => {
+export const RouteComponent = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -20,12 +20,10 @@ const App = () => {
               <Error title="Something went wrong" message={error.message} />
             )}
           >
-            <Countries />
+            <Outlet />
           </ErrorBoundary>
         </Suspense>
       </main>
     </div>
   );
 };
-
-export default App;
