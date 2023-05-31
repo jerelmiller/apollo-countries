@@ -1,5 +1,6 @@
-import { gql, TypedDocumentNode, useSuspenseQuery } from '@apollo/client';
+import { useSuspenseQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
+import query from './[code].query.graphql';
 
 interface CountryQuery {
   country: {
@@ -17,23 +18,12 @@ interface CountryQueryVariables {
   code: string;
 }
 
-const QUERY: TypedDocumentNode<CountryQuery, CountryQueryVariables> = gql`
-  query CountryQuery($code: ID!) {
-    country(code: $code) {
-      code
-      name
-      capital
-      continent {
-        code
-        name
-      }
-    }
-  }
-`;
-
 export const RouteComponent = () => {
   const { code } = useParams() as { code: string };
-  const { data } = useSuspenseQuery(QUERY, { variables: { code } });
+  const { data } = useSuspenseQuery<CountryQuery, CountryQueryVariables>(
+    query,
+    { variables: { code } }
+  );
 
   const { country } = data;
 
