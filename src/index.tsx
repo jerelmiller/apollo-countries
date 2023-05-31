@@ -1,23 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
+import { ApolloProvider, SuspenseCache } from '@apollo/client';
 import App from './App';
-import GraphQLClientProvider from './components/GraphQLClientProvider';
-import createGraphQLClient from './createGraphQLClient';
 import reportWebVitals from './reportWebVitals';
+import { client } from './apollo';
+import './index.scss';
 
-const client = createGraphQLClient({
-  url: 'https://countries.trevorblades.com',
-});
+const suspenseCache = new SuspenseCache();
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <GraphQLClientProvider client={client}>
+    <ApolloProvider client={client} suspenseCache={suspenseCache}>
       <App />
-    </GraphQLClientProvider>
+    </ApolloProvider>
   </React.StrictMode>
 );
 
