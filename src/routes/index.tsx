@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@apollo/client';
 import { Link } from 'react-router-dom';
-import { CountriesQuery } from '../gql/graphql';
+import { CountriesQuery } from '../gql';
 import query from './index.query.graphql';
 import './index.scss';
 

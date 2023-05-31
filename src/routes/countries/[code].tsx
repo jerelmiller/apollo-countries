@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from '@apollo/client';
 import { Link, useParams } from 'react-router-dom';
-import { CountryQuery, CountryQueryVariables } from '../../gql/graphql';
+import { CountryQuery, CountryQueryVariables } from '../../gql';
 import query from './[code].query.graphql';
 
 export const RouteComponent = () => {
