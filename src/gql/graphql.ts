@@ -1,17 +1,30 @@
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-export type MakeEmpty<T extends { [key: string]: unknown }, K extends keyof T> = { [_ in K]?: never };
-export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: { input: string | number; output: string; }
-  String: { input: string; output: string; }
-  Boolean: { input: boolean; output: boolean; }
-  Int: { input: number; output: number; }
-  Float: { input: number; output: number; }
+  ID: { input: string | number; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
 };
 
 export type Continent = {
@@ -43,7 +56,6 @@ export type Country = {
   states: Array<State>;
   subdivisions: Array<Subdivision>;
 };
-
 
 export type CountryNameArgs = {
   lang?: InputMaybe<Scalars['String']['input']>;
@@ -77,31 +89,25 @@ export type Query = {
   languages: Array<Language>;
 };
 
-
 export type QueryContinentArgs = {
   code: Scalars['ID']['input'];
 };
-
 
 export type QueryContinentsArgs = {
   filter?: InputMaybe<ContinentFilterInput>;
 };
 
-
 export type QueryCountriesArgs = {
   filter?: InputMaybe<CountryFilterInput>;
 };
-
 
 export type QueryCountryArgs = {
   code: Scalars['ID']['input'];
 };
 
-
 export type QueryLanguageArgs = {
   code: Scalars['ID']['input'];
 };
-
 
 export type QueryLanguagesArgs = {
   filter?: InputMaybe<LanguageFilterInput>;
@@ -133,10 +139,20 @@ export type CountryQueryVariables = Exact<{
   code: Scalars['ID']['input'];
 }>;
 
+export type CountryQuery = {
+  __typename?: 'Query';
+  country?: {
+    __typename?: 'Country';
+    code: string;
+    name: string;
+    capital?: string | null;
+    continent: { __typename?: 'Continent'; code: string; name: string };
+  } | null;
+};
 
-export type CountryQuery = { __typename?: 'Query', country?: { __typename?: 'Country', code: string, name: string, capital?: string | null, continent: { __typename?: 'Continent', code: string, name: string } } | null };
+export type CountriesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type CountriesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type CountriesQuery = { __typename?: 'Query', countries: Array<{ __typename?: 'Country', name: string, code: string }> };
+export type CountriesQuery = {
+  __typename?: 'Query';
+  countries: Array<{ __typename?: 'Country'; name: string; code: string }>;
+};
