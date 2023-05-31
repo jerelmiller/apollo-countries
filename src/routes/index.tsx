@@ -1,4 +1,5 @@
 import { gql, useSuspenseQuery } from '@apollo/client';
+import { Link } from 'react-router-dom';
 import './index.scss';
 
 interface CountriesQuery {
@@ -21,7 +22,9 @@ export const RouteComponent = () => {
     <ul className="Countries">
       {data.countries.map((country) => (
         <li className="Countries-country" key={country.code}>
-          {country.code} - {country.name}
+          <Link to={`countries/${country.code}`}>
+            {country.code} - {country.name}
+          </Link>
         </li>
       ))}
     </ul>
